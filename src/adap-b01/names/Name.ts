@@ -18,9 +18,19 @@ export class Name {
     private delimiter: string = DEFAULT_DELIMITER;
     private components: string[] = [];
 
-    /** Expects that all Name components are properly masked */
+    /** 
+     * Expects that all Name components are properly masked 
+     */
+    // @methodtype Initialization-method
     constructor(other: string[], delimiter?: string) {
-        throw new Error("needs implementation or deletion");
+        this.components = other;
+        this.delimiter = delimiter ?? DEFAULT_DELIMITER;
+        /*
+            The ?? operator is the better choice here because:
+                It's more explicit about its purpose
+                It only checks for null/undefined, which matches the TypeScript optional parameter behavior
+                It allows valid delimiter values like empty string to pass through
+        */
     }
 
     /**
@@ -28,8 +38,10 @@ export class Name {
      * Control characters are not escaped (creating a human-readable string)
      * Users can vary the delimiter character to be used
      */
+    //@methodtype Conversion-method
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
+        const s = this.components.join(delimiter);
+        return s;
     }
 
     /** 
@@ -37,36 +49,44 @@ export class Name {
      * Machine-readable means that from a data string, a Name can be parsed back in
      * The control characters in the data string are the default characters
      */
+    // @methodtype Conversion-method
     public asDataString(): string {
-        throw new Error("needs implementation or deletion");
+        const s = this.components.join(DEFAULT_DELIMITER);
+        return s;
     }
 
+    // @methodtype Get-method
     public getComponent(i: number): string {
-        throw new Error("needs implementation or deletion");
+        return this.components[i];
     }
 
     /** Expects that new Name component c is properly masked */
+    // @methodtype Set-method
     public setComponent(i: number, c: string): void {
-        throw new Error("needs implementation or deletion");
+        this.components[i] = c;
     }
 
      /** Returns number of components in Name instance */
+     // @methodtype Get-method
      public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
+        return this.components.length;
     }
 
     /** Expects that new Name component c is properly masked */
+    // @methodtype Command-method
     public insert(i: number, c: string): void {
-        throw new Error("needs implementation or deletion");
+        this.components.splice(i, 0, c);
     }
 
     /** Expects that new Name component c is properly masked */
+    // @methodtype Command-method
     public append(c: string): void {
-        throw new Error("needs implementation or deletion");
+        this.components.push(c);
     }
 
+    // @methodtype Command-method
     public remove(i: number): void {
-        throw new Error("needs implementation or deletion");
+        this.components.splice(i, 1);
     }
 
 }
