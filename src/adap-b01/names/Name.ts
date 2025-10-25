@@ -1,6 +1,5 @@
 export const DEFAULT_DELIMITER: string = '.';
 export const ESCAPE_CHARACTER = '\\';
-
 /**
  * A name is a sequence of string components separated by a delimiter character.
  * Special characters within the string may need masking, if they are to appear verbatim.
@@ -51,8 +50,11 @@ export class Name {
      */
     // @methodtype Conversion-method
     public asDataString(): string {
-        const s = this.components.join(DEFAULT_DELIMITER);
-        return s;
+        const s:  string[] = []; 
+        for (let i = 0; i < this.components.length; i++){
+            s.push(this.components[i].replace(new RegExp(`\\${ESCAPE_CHARACTER}`, "g"), ESCAPE_CHARACTER + ESCAPE_CHARACTER).replace(new RegExp(`\\${DEFAULT_DELIMITER}`, "g"), ESCAPE_CHARACTER + DEFAULT_DELIMITER));
+        }
+        return s.join(DEFAULT_DELIMITER);
     }
 
     /** Returns properly masked component string */

@@ -33,3 +33,37 @@ describe("Escape character extravaganza", () => {
     expect(n.asString()).toBe("oss.cs.fau.de#people");
   });
 });
+
+
+describe("asDataString Test Delimiter character", () => {
+  it("Test delimiter character", () => {
+    // Original name string = "oss.cs.fau.de"
+    let n: Name = new Name(["oss.cs.fau.de"], '#');
+    expect(n.asString()).toBe("oss.cs.fau.de");
+    n.append("people");
+    expect(n.asString()).toBe("oss.cs.fau.de#people");
+    expect(n.asDataString()).toBe("oss\\.cs\\.fau\\.de.people");
+  });
+});
+
+describe("asDataString Test Escape character", () => {
+  it("Test escape character", () => {
+    // Original name string = "oss\cs\fau\de"
+    let n: Name = new Name(["oss\\cs\\fau\\de"], '#');
+    expect(n.asString()).toBe("oss\\cs\\fau\\de");
+    n.append("people");
+    expect(n.asString()).toBe("oss\\cs\\fau\\de#people");
+    expect(n.asDataString()).toBe("oss\\\\cs\\\\fau\\\\de.people");
+  }); 
+});
+
+describe("asDataString Test Delimiter and Escape character combined", () => {
+  it("Test escape character and delimiter character at the same time", () => {
+    // Original name string = "oss\.cs\.fau\.de"
+    let n: Name = new Name(["oss\\.cs\\.fau\\.de"], '#');
+    expect(n.asString()).toBe("oss\\.cs\\.fau\\.de");
+    n.append("people");
+    expect(n.asString()).toBe("oss\\.cs\\.fau\\.de#people");
+    expect(n.asDataString()).toBe("oss\\\\\\.cs\\\\\\.fau\\\\\\.de.people");
+  }); 
+});
