@@ -24,6 +24,21 @@ export interface Name extends Printable {
      */
     getNoComponents(): number;
 
+    /**
+     * Returns a human-readable representation of the Name instance using user-set special characters
+     * Special characters are not escaped (creating a human-readable string)
+     * Users can vary the delimiter character to be used
+     */
+    asString(delimiter?: string): string;
+
+    /** 
+     * Returns a machine-readable representation of Name instance using default special characters
+     * Machine-readable means that from a data string, a Name can be parsed back in
+     * The special characters in the data string are the default characters
+     */
+    asDataString(): string;
+
+    /** Returns properly masked component string */
     getComponent(i: number): string;
 
     /** Expects that new Name component c is properly masked */

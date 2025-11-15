@@ -14,11 +14,11 @@ export class StringName implements Name {
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        return this.name;
+        return this.name.replace(new RegExp(`\\${this.delimiter}`, "g"), delimiter);
     }
 
     public asDataString(): string {
-        return this.name.replace(new RegExp(`\\${ESCAPE_CHARACTER}`, "g"), ESCAPE_CHARACTER + ESCAPE_CHARACTER).replace(new RegExp(`\\${this.delimiter}`, "g"), ESCAPE_CHARACTER + this.delimiter);
+        return this.name.replace(new RegExp(`\\${ESCAPE_CHARACTER}`, "g"), ESCAPE_CHARACTER + ESCAPE_CHARACTER).replace(new RegExp(`\\${this.delimiter}`, "g"), ESCAPE_CHARACTER + DEFAULT_DELIMITER);
     }
 
     public getDelimiterCharacter(): string {
