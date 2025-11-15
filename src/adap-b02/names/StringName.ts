@@ -10,7 +10,7 @@ export class StringName implements Name {
     constructor(source: string, delimiter?: string) {
         this.name = source;
         this.delimiter = delimiter ?? DEFAULT_DELIMITER;
-        this.noComponents = source === "" ? 0 : this.name.split(this.delimiter).length;
+        this.noComponents = source === "" ? 1 : this.name.split(this.delimiter).length;
     }
 
     public asString(delimiter: string = this.delimiter): string {
