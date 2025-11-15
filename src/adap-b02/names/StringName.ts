@@ -66,9 +66,9 @@ export class StringName implements Name {
         if (other.isEmpty()) {
             return;
         }
-        const s = other.asDataString().replace(other.getDelimiterCharacter(), this.delimiter);
-        this.name += this.delimiter + s;
-        this.noComponents += other.getNoComponents();
+        for (let i = 0; i < other.getNoComponents(); i++) {
+            this.append(other.getComponent(i));
+        }
     }
 
 }
