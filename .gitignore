@@ -4,4 +4,4 @@ solution
 .vscode
 *-solutions
 *-private
-test/adap-b02/names/Name.test_private.ts
+test/adap-b02/names/Name_private.test.ts
