@@ -8,64 +8,46 @@ export class StringName extends AbstractName {
     protected noComponents: number = 0;
 
     constructor(source: string, delimiter?: string) {
-        super();
-        throw new Error("needs implementation or deletion");
+        super(delimiter);
+        this.name = source;
+        this.noComponents = source.split(this.delimiter).length;
     }
 
     public clone(): Name {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation or deletion");
+        return new StringName(this.name, this.delimiter);
     }
 
     public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
+        return this.noComponents;
     }
 
-    public getComponent(i: number): string {
-        throw new Error("needs implementation or deletion");
+    public getComponent(x: number): string {
+        return this.name.split(this.delimiter)[x];
     }
 
-    public setComponent(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
+    public setComponent(n: number, c: string): void {
+        const components = this.name.split(this.delimiter);
+        components[n] = c;
+        this.name = components.join(this.delimiter);
     }
 
-    public insert(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
+    public insert(n: number, c: string): void {
+        const components = this.name.split(this.delimiter);
+        components.splice(n, 0, c);
+        this.name = components.join(this.delimiter);
+        this.noComponents += 1;
     }
 
-    public append(c: string) {
-        throw new Error("needs implementation or deletion");
+    public append(c: string): void {
+        this.name += this.delimiter + c;
+        this.noComponents += 1;
     }
 
-    public remove(i: number) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public concat(other: Name): void {
-        throw new Error("needs implementation or deletion");
+    public remove(n: number): void {
+        const components = this.name.split(this.delimiter);
+        components.splice(n, 1);
+        this.name = components.join(this.delimiter);
+        this.noComponents -= 1;
     }
 
 }
