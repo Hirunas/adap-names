@@ -7,11 +7,17 @@
     "build": "tsc",
     "test": "vitest",
     "test:b01": "vitest --dir test/adap-b01 --passWithNoTests",
+    "test:b01_advanced": "vitest --dir advanced_test/adap-b01 --passWithNoTests",
     "test:b02": "vitest --dir test/adap-b02 --passWithNoTests",
+    "test:b02_advanced": "vitest --dir advanced_test/adap-b02 --passWithNoTests",
     "test:b03": "vitest --dir test/adap-b03 --passWithNoTests",
+    "test:b03_advanced": "vitest --dir advanced_test/adap-b03 --passWithNoTests",
     "test:b04": "vitest --dir test/adap-b04 --passWithNoTests",
+    "test:b04_advanced": "vitest --dir advanced_test/adap-b04 --passWithNoTests",
     "test:b05": "vitest --dir test/adap-b05 --passWithNoTests",
-    "test:b06": "vitest --dir test/adap-b06 --passWithNoTests"
+    "test:b05_advanced": "vitest --dir advanced_test/adap-b05 --passWithNoTests",
+    "test:b06": "vitest --dir test/adap-b06 --passWithNoTests",
+    "test:b06_advanced": "vitest --dir advanced_test/adap-b06 --passWithNoTests"
   },
   "keywords": [],
   "author": "Dirk Riehle",

@@ -1,6 +1,7 @@
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
+import { InvalidStateException } from "../common/InvalidStateException";
 
 export class StringName extends AbstractName {
 
@@ -8,64 +9,73 @@ export class StringName extends AbstractName {
     protected noComponents: number = 0;
 
     constructor(source: string, delimiter?: string) {
-        super();
-        throw new Error("needs implementation or deletion");
+        super(delimiter);
+        this.name = source;
+        this.noComponents = source.split(this.delimiter).length;
     }
 
-    public clone(): Name {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation or deletion");
+    public doClone(): Name {
+        return new StringName(this.name, this.delimiter);
     }
 
     public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
+        return this.noComponents;
     }
 
-    public getComponent(i: number): string {
-        throw new Error("needs implementation or deletion");
+    public doGetComponent(x: number): string {
+        return this.name.split(this.delimiter)[x];
     }
 
-    public setComponent(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
+    public doSetComponent(n: number, c: string): void {
+        const components = this.name.split(this.delimiter);
+        components[n] = c;
+        this.name = components.join(this.delimiter);
     }
 
-    public insert(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
+    public doInsert(n: number, c: string): void {
+        const components = this.name.split(this.delimiter);
+        components.splice(n, 0, c);
+        this.name = components.join(this.delimiter);
+        this.noComponents += 1;
     }
 
-    public append(c: string) {
-        throw new Error("needs implementation or deletion");
+    public doAppend(c: string): void {
+        this.name += this.delimiter + c;
+        this.noComponents += 1;
     }
 
-    public remove(i: number) {
-        throw new Error("needs implementation or deletion");
+    public doRemove(n: number): void {
+        const components = this.name.split(this.delimiter);
+        components.splice(n, 1);
+        this.name = components.join(this.delimiter);
+        this.noComponents -= 1;
     }
 
-    public concat(other: Name): void {
-        throw new Error("needs implementation or deletion");
-    }
+    protected assertInvariant(): void {
+                InvalidStateException.assert(
+                    this.noComponents >= 0,
+                    "Number of components must not be negative"
+                );
+                InvalidStateException.assert(
+                    this.name !== null && this.name !== undefined,
+                    "Name string must not be null or undefined"
+                );
+                InvalidStateException.assert(
+                    this.noComponents === Math.floor(this.noComponents),
+                    "Number of components must be an integer"
+                );
+                InvalidStateException.assert(
+                    this.delimiter !== null && this.delimiter !== undefined,
+                    "Delimiter must not be null or undefined"
+                );
+                InvalidStateException.assert(
+                    this.delimiter.length === 1,
+                    `Delimiter must be a single character, but was: "${this.delimiter}"`
+                );
+                InvalidStateException.assert(
+                    this.delimiter !== ESCAPE_CHARACTER,
+                    `Delimiter must not be the escape character: "${ESCAPE_CHARACTER}"`
+                );
+            }
 
 }
