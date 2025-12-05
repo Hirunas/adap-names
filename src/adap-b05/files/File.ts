@@ -50,5 +50,18 @@ export class File extends Node {
     protected doGetFileState(): FileState {
         return this.state;
     }
+        
+    /**
+     * Returns all nodes in the tree that match bn
+     * @param bn basename of node being searched for
+     */
+    public findNodes(bn: string): Set<Node> {
+        const result: Set<Node> = new Set<Node>();
 
+        if (this.getBaseName() === bn) {
+            result.add(this);
+        }
+        
+        return result;
+    }
 }

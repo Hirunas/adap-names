@@ -33,7 +33,10 @@ export class Node {
     }
 
     public getBaseName(): string {
-        return this.doGetBaseName();
+        const erg =  this.doGetBaseName();
+        this.assertInvariant();
+        return erg;
+
     }
 
     protected doGetBaseName(): string {
@@ -57,7 +60,22 @@ export class Node {
      * @param bn basename of node being searched for
      */
     public findNodes(bn: string): Set<Node> {
-        throw new Error("needs implementation or deletion");
+        const result: Set<Node> = new Set<Node>();
+
+        if (this.getBaseName() === bn) {
+            result.add(this);
+        }
+
+        return result;
     }
 
+    protected assertInvariant(): void {
+        // allow empty baseName only for the root (root's parentNode === root)
+        if (this.baseName.length === 0 && this.parentNode as Node !== this as Node )    {
+            throw new InvalidStateException("Base name cannot be empty");
+        }
+        if (this.baseName === null || this.baseName === undefined) {
+            throw new InvalidStateException("Base name cannot be null or undefined");
+        }
+    }
 }

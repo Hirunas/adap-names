@@ -1,6 +1,7 @@
 import { Name } from "../names/Name";
 import { StringName } from "../names/StringName";
 import { Directory } from "./Directory";
+import { Node } from "./Node";
 
 export class RootNode extends Directory {
 
